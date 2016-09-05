@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.example.abhi.multibuild"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        market1 {
+            applicationId "com.akhare.myapp1"
+            versionName "1.0-demo"
+        }
+        market2 {
+            applicationId "com.akhare.myapp2"
+            versionName "1.0-full"
+        }
+    }
+
+    sourceSets{
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+
+        market1.java.srcDirs = ['src/market1/java']
+        market2.java.srcDirs = ['src/market2/java']
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+
+    market2Compile fileTree(include: ['*.jar'], dir: 'libs2')
+    market1Compile fileTree(include: ['*.jar'], dir: 'libs1')
+}
